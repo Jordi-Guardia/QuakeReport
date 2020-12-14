@@ -4,5 +4,6 @@
         <item name="colorPrimary">@color/primary_color</item>
         <item name="colorPrimaryDark">@color/primary_dark_color</item>
         <item name="colorAccent">@color/tan_background</item>
+
     </style>
 </resources>

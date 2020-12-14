@@ -4,28 +4,39 @@
     android:id="@+id/text_container"
     android:layout_width="match_parent"
     android:layout_height="@dimen/list_item_height"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:paddingTop="@dimen/activity_vertical_margin">
 
     <TextView
         android:id="@+id/num_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_weight="3"
+        android:layout_weight="4"
         android:textColor="@android:color/black"
-        android:textSize="16sp"
-        android:layout_gravity="center"
+        android:textSize="@dimen/textSize"
+        android:layout_gravity="top"
         tools:text="valor" />
 
+    <TextView
+        android:id="@+id/aprop_city_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_weight="3"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/textSize"
+        android:layout_gravity="top"
+        tools:text="ciutat" />
     <TextView
         android:id="@+id/city_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_weight="2"
+        android:layout_weight="3"
         android:textColor="@android:color/black"
-        android:textSize="16sp"
-        android:layout_gravity="center"
+        android:textSize="@dimen/textSize"
+        android:layout_gravity="top"
         tools:text="ciutat" />
 
     <TextView
@@ -33,9 +44,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_weight="2"
+        android:layout_weight="4"
         android:textColor="@android:color/black"
-        android:textSize="16sp"
-        android:layout_gravity="center"
+        android:textSize="@dimen/textSize"
+        android:layout_gravity="top"
         tools:text="data" />
+
+    <TextView
+        android:id="@+id/time_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="4"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/textSize"
+        android:layout_gravity="top"
+        tools:text="15:00" />
 </LinearLayout>

@@ -6,6 +6,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.ArrayList;
 
 /**
@@ -13,6 +15,7 @@ import java.util.ArrayList;
  */
 public final class QueryUtils {
     private final static String URL = "http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2016-01-01&endtime=2016-01-31&minmag=6&limit=10";
+
     /**
      * Sample JSON response for a USGS query
      */
@@ -52,14 +55,16 @@ public final class QueryUtils {
             // build up a list of Earthquake objects with the corresponding data.
             JSONObject baseJsonResponse = new JSONObject(SAMPLE_JSON_RESPONSE);
             JSONArray earthquakeArray = baseJsonResponse.getJSONArray("features");
-            for (int i=0 ; i<earthquakeArray.length() ; i++){
+            for (int i = 0; i < earthquakeArray.length(); i++) {
                 JSONObject currentEathquake = earthquakeArray.getJSONObject(i);
                 JSONObject properties = currentEathquake.getJSONObject("properties");
-                String magnitude = properties.getString("mag");
+                Double magnitude = properties.getDouble("mag");
                 String location = properties.getString("place");
-                String time = properties.getString("time");
+                // Extract the value for the key called "time"
+                long mTimeInMilliseconds = properties.getLong("time");
 
-                Earthquake earthquake = new Earthquake(magnitude, location, time);
+
+                Earthquake earthquake = new Earthquake(magnitude, location, mTimeInMilliseconds);
                 earthquakes.add(earthquake);
 
 

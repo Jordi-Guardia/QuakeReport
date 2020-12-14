@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         // Create a new {@link ArrayAdapter} of earthquakes
         //ArrayAdapter<String> adapter = new ArrayAdapter<String>(
           //      this, android.R.layout.list_items, earthquakes);
-        WordAdapter adapter = new WordAdapter(this, earthquakes);
+        EarthquakeAdapter adapter = new EarthquakeAdapter(this, earthquakes);
         // Set the adapter on the {@link ListView}
         // so the list can be populated in the user interface
         earthquakeListView.setAdapter(adapter);

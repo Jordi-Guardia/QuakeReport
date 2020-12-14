@@ -5,25 +5,25 @@ package com.example.android.quakereport;
  * * It contains a default translation and a Miwok translation for that word.
  */
 public class Earthquake {
-    private final String mvalorQuake;
+    private Double mvalorQuake;
     private final String mcity;
-    private final String mdateQuake;
+    private final long mTimeInMilliseconds;
 
     /**
-     * @param valorQuake Valor màxim del seisme
-     * @param city Ciutat del seisme
-     * @param dateQuake Data del seisme
+     * @param valorQuake         Valor màxim del seisme
+     * @param city               Ciutat del seisme
+     * @param timeInMilliseconds Data del seisme en milisegons
      */
-    public Earthquake(String valorQuake, String city, String dateQuake) {
+    public Earthquake(Double valorQuake, String city, long timeInMilliseconds) {
         mvalorQuake = valorQuake;
         mcity = city;
-        mdateQuake = dateQuake;
+        mTimeInMilliseconds = timeInMilliseconds;
     }
 
     /**
      * @return És un string
      */
-    public String getvalorQuake() {
+    public Double getvalorQuake() {
         return mvalorQuake;
     }
 
@@ -35,7 +35,11 @@ public class Earthquake {
     }
 
     /**
-     * @return És un String
+     * @return És un long
      */
-    public String getdateQuake() { return mdateQuake; }
+    public long getTimeInMilliseconds() {
+        return mTimeInMilliseconds;
+    }
+
+
 }
