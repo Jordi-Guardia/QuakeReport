@@ -1,10 +1,10 @@
 package com.example.android.quakereport;
 
 /**
- * {@link Word} represents a vocabulary word that the user wants to learn.
+ * {@link Earthquake} represents a vocabulary word that the user wants to learn.
  * * It contains a default translation and a Miwok translation for that word.
  */
-public class Word {
+public class Earthquake {
     private final String mvalorQuake;
     private final String mcity;
     private final String mdateQuake;
@@ -14,7 +14,7 @@ public class Word {
      * @param city Ciutat del seisme
      * @param dateQuake Data del seisme
      */
-    public Word(String valorQuake, String city, String dateQuake) {
+    public Earthquake(String valorQuake, String city, String dateQuake) {
         mvalorQuake = valorQuake;
         mcity = city;
         mdateQuake = dateQuake;

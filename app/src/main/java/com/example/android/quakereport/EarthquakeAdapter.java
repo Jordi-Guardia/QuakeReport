@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import java.util.ArrayList;
 
-public class WordAdapter extends ArrayAdapter<Word> {
+public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
 
 
     /**
@@ -19,7 +19,7 @@ public class WordAdapter extends ArrayAdapter<Word> {
      * @param context The current context. Used to inflate the layout file.
      */
 
-    public WordAdapter(Context context, ArrayList<Word> earthquakes) {
+    public EarthquakeAdapter(Context context, ArrayList<Earthquake> earthquakes) {
         super(context, 0, earthquakes);
 
         // Here, we initialize the ArrayAdapter's internal storage for the context and the list.
@@ -48,7 +48,7 @@ public class WordAdapter extends ArrayAdapter<Word> {
         }
 
         // Get the {@link AndroidFlavor} object located at this position in the list
-        Word currentWord = getItem(position);
+        Earthquake currentWord = getItem(position);
 
         // Find the TextView in the list_item.xml layout with the ID version_name
         TextView numTextView = (TextView) listItemView.findViewById(R.id.num_text_view);
