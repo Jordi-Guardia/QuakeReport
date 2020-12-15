@@ -20,6 +20,7 @@
 
     <!-- Background color for the phrases category -->
     <color name="category_phrases">#16AFCA</color>
+
     <!-- Color for an earthquake with magnitude 0 and 2 -->
     <color name="magnitude1">#4A7BA7</color>
 
@@ -49,4 +50,10 @@
 
     <!-- Magnitude circle color for an earthquake with magnitude over 10 -->
     <color name="magnitude10plus">#C03823</color>
+
+    <!-- Text color for the details of the earthquake in the list item -->
+    <color name="textColorEarthquakeDetails">#B4BAC0</color>
+
+    <!-- Text color for the primary location of the earthquake in the list item -->
+    <color name="textColorEarthquakeLocation">#2B3D4D</color>
 </resources>

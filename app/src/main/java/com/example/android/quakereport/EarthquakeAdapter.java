@@ -59,13 +59,13 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
                     R.layout.list_items, parent, false);
         }
         // Get the {@link AndroidFlavor} object located at this position in the list
-        Earthquake currentWord = getItem(position);
+        Earthquake currentEarthquake = getItem(position);
 
 
         // Find the TextView in the list_item.xml layout with the ID version_name
         TextView numTextView = (TextView) listItemView.findViewById(R.id.num_text_view);
         // Format the magnitude to show 1 decimal place
-        String formattedMagnitude = formatMagnitude(currentWord.getvalorQuake());
+        String formattedMagnitude = formatMagnitude(currentEarthquake.getvalorQuake());
         // Get the version name from the current AndroidFlavor object and
         // set this text on the name TextView
         numTextView.setText(formattedMagnitude);
@@ -74,15 +74,13 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
         // Fetch the background from the TextView, which is a GradientDrawable.
         GradientDrawable magnitudeCircle = (GradientDrawable) numTextView.getBackground();
         // Get the appropriate background color based on the current earthquake magnitude
-        int magnitudeColor = getMagnitudeColor(currentWord.getvalorQuake());
+        int magnitudeColor = getMagnitudeColor(currentEarthquake.getvalorQuake());
         // Set the color on the magnitude circle
         magnitudeCircle.setColor(magnitudeColor);
-        // Find the TextView in the list_item.xml layout with the ID version_number
-        TextView apropcityTextView = (TextView) listItemView.findViewById(R.id.aprop_city_text_view);
 
         // Get the original location string from the Earthquake object,
         // which can be in the format of "5km N of Cairo, Egypt" or "Pacific-Antarctic Ridge".
-        String originalLocation = currentWord.getcity();
+        String originalLocation = currentEarthquake.getcity();
 
         // If the original location string (i.e. "5km N of Cairo, Egypt") contains
         // a primary location (Cairo, Egypt) and a location offset (5km N of that city)
@@ -121,7 +119,7 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
 
 
         // Create a new Date object from the time in milliseconds of the earthquake
-        Date dateObject = new Date(currentWord.getTimeInMilliseconds());
+        Date dateObject = new Date(currentEarthquake.getTimeInMilliseconds());
 
         // Find the TextView with view ID date
         TextView dateView = (TextView) listItemView.findViewById(R.id.date_text_view);
@@ -191,7 +189,7 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
      * from a decimal magnitude value.
      */
     private String formatMagnitude(double magnitude) {
-        DecimalFormat magnitudeFormat = new DecimalFormat("0.0");
+        DecimalFormat magnitudeFormat = new DecimalFormat("0.00");
         return magnitudeFormat.format(magnitude);
     }
 
