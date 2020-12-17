@@ -19,68 +19,69 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * An {@link EarthquakeAdapter} knows how to create a list item layout for each earthquake
+ * in the data source (a list of {@link Earthquake} objects).
+ * <p>
+ * These list item layouts will be provided to an adapter view like ListView
+ * to be displayed to the user.
+ */
 public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
 
+    /**
+     * The part of the location string from the USGS service that we use to determine
+     * whether or not there is a location offset present ("5km N of Cairo, Egypt").
+     */
     private static final String LOCATION_SEPARATOR = " of ";
+    private static final String SEPARADOR_LOCAL = " de ";
+    private static final String AFEGIT_LOCAL = "A ";
+    private static final String DIRECCIO_LOCAL = " direcció ";
 
     /**
-     * This is our own custom constructor (it doesn't mirror a superclass constructor).
-     * The context is used to inflate the layout file, and the list is the data we want
-     * to populate into the lists.
+     * Constructs a new {@link EarthquakeAdapter}.
      *
-     * @param context The current context. Used to inflate the layout file.
+     * @param context     of the app
+     * @param earthquakes is the list of earthquakes, which is the data source of the adapter
      */
-    public EarthquakeAdapter(Context context, ArrayList<Earthquake> earthquakes) {
+    public EarthquakeAdapter(Context context, List<Earthquake> earthquakes) {
         super(context, 0, earthquakes);
-
-        // Here, we initialize the ArrayAdapter's internal storage for the context and the list.
-        // the second argument is used when the ArrayAdapter is populating a single TextView.
-        // Because this is a custom adapter for two TextViews and an ImageView, the adapter is not
-        // going to use this second argument, so it can be any value. Here, we used 0.
-        // super(context, 0, word);
     }
 
     /**
-     * Provides a view for an AdapterView (ListView, GridView, etc.)
-     *
-     * @param position    The position in the list of data that should be displayed in the
-     *                    list item view.
-     * @param convertView The recycled view to populate.
-     * @param parent      The parent ViewGroup that is used for inflation.
-     * @return The View for the position in the AdapterView.
+     * Returns a list item view that displays information about the earthquake at the given position
+     * in the list of earthquakes.
      */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
-        // Check if the existing view is being reused, otherwise inflate the view
+        // Check if there is an existing list item view (called convertView) that we can reuse,
+        // otherwise, if convertView is null, then inflate a new list item layout.
         View listItemView = convertView;
         if (listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(
-                    R.layout.list_items, parent, false);
+                    R.layout.earthquake_list_items, parent, false);
         }
-        // Get the {@link AndroidFlavor} object located at this position in the list
+
+        // Find the earthquake at the given position in the list of earthquakes
         Earthquake currentEarthquake = getItem(position);
 
-
-        // Find the TextView in the list_item.xml layout with the ID version_name
-        TextView numTextView = (TextView) listItemView.findViewById(R.id.num_text_view);
+        // Find the TextView with view ID magnitude
+        TextView magnitudeView = (TextView) listItemView.findViewById(R.id.magnitude);
         // Format the magnitude to show 1 decimal place
-        String formattedMagnitude = formatMagnitude(currentEarthquake.getvalorQuake());
-        // Get the version name from the current AndroidFlavor object and
-        // set this text on the name TextView
-        numTextView.setText(formattedMagnitude);
+        String formattedMagnitude = formatMagnitude(currentEarthquake.getMagnitude());
+        // Display the magnitude of the current earthquake in that TextView
+        magnitudeView.setText(formattedMagnitude);
 
         // Set the proper background color on the magnitude circle.
         // Fetch the background from the TextView, which is a GradientDrawable.
-        GradientDrawable magnitudeCircle = (GradientDrawable) numTextView.getBackground();
+        GradientDrawable magnitudeCircle = (GradientDrawable) magnitudeView.getBackground();
         // Get the appropriate background color based on the current earthquake magnitude
-        int magnitudeColor = getMagnitudeColor(currentEarthquake.getvalorQuake());
+        int magnitudeColor = getMagnitudeColor(currentEarthquake.getMagnitude());
         // Set the color on the magnitude circle
         magnitudeCircle.setColor(magnitudeColor);
 
         // Get the original location string from the Earthquake object,
         // which can be in the format of "5km N of Cairo, Egypt" or "Pacific-Antarctic Ridge".
-        String originalLocation = currentEarthquake.getcity();
+        String originalLocation = currentEarthquake.getLocation();
 
         // If the original location string (i.e. "5km N of Cairo, Egypt") contains
         // a primary location (Cairo, Egypt) and a location offset (5km N of that city)
@@ -89,14 +90,16 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
         String primaryLocation;
         String locationOffset;
 
+
         // Check whether the originalLocation string contains the " of " text
         if (originalLocation.contains(LOCATION_SEPARATOR)) {
             // Split the string into different parts (as an array of Strings)
             // based on the " of " text. We expect an array of 2 Strings, where
             // the first String will be "5km N" and the second String will be "Cairo, Egypt".
             String[] parts = originalLocation.split(LOCATION_SEPARATOR);
+            parts[0] = parts[0].replace("W", "O");
             // Location offset should be "5km N " + " of " --> "5km N of"
-            locationOffset = parts[0] + LOCATION_SEPARATOR;
+            locationOffset = AFEGIT_LOCAL + parts[0] + SEPARADOR_LOCAL;
             // Primary location should be "Cairo, Egypt"
             primaryLocation = parts[1];
         } else {
@@ -108,34 +111,33 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
         }
 
         // Find the TextView with view ID location
-        TextView primaryLocationView = (TextView) listItemView.findViewById(R.id.city_text_view);
+        TextView primaryLocationView = (TextView) listItemView.findViewById(R.id.primary_location);
         // Display the location of the current earthquake in that TextView
         primaryLocationView.setText(primaryLocation);
 
         // Find the TextView with view ID location offset
-        TextView locationOffsetView = (TextView) listItemView.findViewById(R.id.aprop_city_text_view);
+        TextView locationOffsetView = (TextView) listItemView.findViewById(R.id.location_offset);
         // Display the location offset of the current earthquake in that TextView
         locationOffsetView.setText(locationOffset);
-
 
         // Create a new Date object from the time in milliseconds of the earthquake
         Date dateObject = new Date(currentEarthquake.getTimeInMilliseconds());
 
         // Find the TextView with view ID date
-        TextView dateView = (TextView) listItemView.findViewById(R.id.date_text_view);
+        TextView dateView = (TextView) listItemView.findViewById(R.id.date);
         // Format the date string (i.e. "Mar 3, 1984")
         String formattedDate = formatDate(dateObject);
         // Display the date of the current earthquake in that TextView
         dateView.setText(formattedDate);
 
         // Find the TextView with view ID time
-        TextView timeView = (TextView) listItemView.findViewById(R.id.time_text_view);
+        TextView timeView = (TextView) listItemView.findViewById(R.id.time);
         // Format the time string (i.e. "4:30PM")
         String formattedTime = formatTime(dateObject);
         // Display the time of the current earthquake in that TextView
         timeView.setText(formattedTime);
 
-        // so that it can be shown in the ListView
+        // Return the list item view that is now showing the appropriate data
         return listItemView;
     }
 
@@ -189,7 +191,7 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
      * from a decimal magnitude value.
      */
     private String formatMagnitude(double magnitude) {
-        DecimalFormat magnitudeFormat = new DecimalFormat("0.00");
+        DecimalFormat magnitudeFormat = new DecimalFormat("0.0");
         return magnitudeFormat.format(magnitude);
     }
 
@@ -197,7 +199,7 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
      * Return the formatted date string (i.e. "Mar 3, 1984") from a Date object.
      */
     private String formatDate(Date dateObject) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat(" dd LLL yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd LLL yyyy");
         return dateFormat.format(dateObject);
     }
 
@@ -208,5 +210,4 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
         return timeFormat.format(dateObject);
     }
-
 }

@@ -1,51 +1,63 @@
 package com.example.android.quakereport;
 
 /**
- * {@link Earthquake} represents a vocabulary word that the user wants to learn.
- * * It contains a default translation and a Miwok translation for that word.
+ * An {@link Earthquake} object contains information related to a single earthquake.
  */
 public class Earthquake {
-    private double mvalorQuake;
-    private final String mcity;
-    private final long mTimeInMilliseconds;
+
+    /** Magnitude of the earthquake */
+    private double mMagnitude;
+
+    /** Location of the earthquake */
+    private String mLocation;
+
+    /** Time of the earthquake */
+    private long mTimeInMilliseconds;
+
+    /** Website URL of the earthquake */
     private String mUrl;
 
     /**
-     * @param valorQuake         Valor màxim del seisme
-     * @param city               Ciutat del seisme
-     * @param timeInMilliseconds Data del seisme en milisegons
+     * Constructs a new {@link Earthquake} object.
+     *
+     * @param magnitude is the magnitude (size) of the earthquake
+     * @param location is the location where the earthquake happened
+     * @param timeInMilliseconds is the time in milliseconds (from the Epoch) when the
+     *                           earthquake happened
+     * @param url is the website URL to find more details about the earthquake
      */
-    public Earthquake(double valorQuake, String city, long timeInMilliseconds, String url) {
-        mvalorQuake = valorQuake;
-        mcity = city;
+    public Earthquake(double magnitude, String location, long timeInMilliseconds, String url) {
+        mMagnitude = magnitude;
+        mLocation = location;
         mTimeInMilliseconds = timeInMilliseconds;
         mUrl = url;
     }
 
     /**
-     * @return És un string
+     * Returns the magnitude of the earthquake.
      */
-    public double getvalorQuake() {
-        return mvalorQuake;
+    public double getMagnitude() {
+        return mMagnitude;
     }
 
     /**
-     * @return És un string
+     * Returns the location of the earthquake.
      */
-    public String getcity() {
-        return mcity;
+    public String getLocation() {
+        return mLocation;
     }
 
     /**
-     * @return És un long
+     * Returns the time of the earthquake.
      */
     public long getTimeInMilliseconds() {
         return mTimeInMilliseconds;
     }
+
     /**
      * Returns the website URL to find more information about the earthquake.
      */
-    public String getUrl() { return mUrl; }
-
-
+    public String getUrl() {
+        return mUrl;
+    }
 }

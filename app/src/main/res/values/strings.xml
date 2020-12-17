@@ -16,5 +16,5 @@
     <string name="icon_texte">Icona per escoltar els sons en miwok</string>
     <!-- Default text to show with the earthquake location ("Near the Pacific-Antarctic Ridge")
   if no specific kilometer distance from the primary location is given [CHAR LIMIT=30] -->
-    <string name="near_the">Near the</string>
+    <string name="near_the">aprop de</string>
 </resources>
