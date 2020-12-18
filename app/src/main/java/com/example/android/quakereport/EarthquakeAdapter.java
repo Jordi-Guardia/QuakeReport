@@ -11,13 +11,10 @@ import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Locale;
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * An {@link EarthquakeAdapter} knows how to create a list item layout for each earthquake
@@ -27,15 +24,17 @@ import java.util.List;
  * to be displayed to the user.
  */
 public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
-
+    Locale catalan = new Locale("ca", "CAT");
     /**
      * The part of the location string from the USGS service that we use to determine
      * whether or not there is a location offset present ("5km N of Cairo, Egypt").
      */
     private static final String LOCATION_SEPARATOR = " of ";
-    private static final String SEPARADOR_LOCAL = " de ";
+    private static final String SEPARADOR_LOCAL = " de";
     private static final String AFEGIT_LOCAL = "A ";
     private static final String DIRECCIO_LOCAL = " direcció ";
+    private static final String REGIO_SEPARATOR = "region";
+    private static final String REGIO_LOCAL = " Regió de ";
 
     /**
      * Constructs a new {@link EarthquakeAdapter}.
@@ -100,7 +99,6 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
             parts[0] = parts[0].replace("W", "O");
             // Location offset should be "5km N " + " of " --> "5km N of"
             locationOffset = AFEGIT_LOCAL + parts[0] + SEPARADOR_LOCAL;
-            // Primary location should be "Cairo, Egypt"
             primaryLocation = parts[1];
         } else {
             // Otherwise, there is no " of " text in the originalLocation string.
@@ -198,8 +196,9 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
     /**
      * Return the formatted date string (i.e. "Mar 3, 1984") from a Date object.
      */
+
     private String formatDate(Date dateObject) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd LLL yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd LLL yyyy", catalan);
         return dateFormat.format(dateObject);
     }
 
@@ -207,7 +206,7 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
      * Return the formatted date string (i.e. "4:30 PM") from a Date object.
      */
     private String formatTime(Date dateObject) {
-        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", catalan);
         return timeFormat.format(dateObject);
     }
 }

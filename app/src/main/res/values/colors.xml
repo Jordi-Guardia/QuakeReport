@@ -56,4 +56,10 @@
 
     <!-- Text color for the primary location of the earthquake in the list item -->
     <color name="textColorEarthquakeLocation">#2B3D4D</color>
+
+    <!-- colors de l'icona -->
+    <color name="red">#F80738</color>
+    <color name="black">#2B3D4D</color>
+
+
 </resources>
